@@ -16,31 +16,19 @@ public class Main {
     static List<Integer> listThreads = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
+
         System.out.println("WriteThreads amount:");
         int write = scanner.nextInt();
         System.out.println("CalculateThreads amount:");
         int calculate = scanner.nextInt();
 
-//        writeThread = new WriteThread(write, listThreads);
-//        writeThread.start();
-//
-//        calculateThread = new CalculateThread(calculate);
-//        calculateThread.start();
-//
-//        if(listThreads != null && !listThreads.isEmpty()){
-//            for(int i : listThreads){
-//                System.out.println(i);
-//            }
-//        }
-//        else{
-//            System.out.println("ololo");
-//        }
+
 
         while (true){
             writeThread = new WriteThread(write, listThreads);
             writeThread.start();
 
-            calculateThread = new CalculateThread(calculate);
+            calculateThread = new CalculateThread(calculate, listThreads);
             calculateThread.start();
 
             if(listThreads != null && !listThreads.isEmpty()){

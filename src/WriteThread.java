@@ -30,4 +30,8 @@ public class WriteThread extends Thread{
         }
     }
 
+//    public synchronized int rand(int max){
+//        return (int) (Math.random() * ++max);
+//    }
+
 }
