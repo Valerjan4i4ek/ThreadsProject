@@ -13,6 +13,7 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     static WriteThread writeThread;
     static CalculateThread calculateThread;
+    static WatchTread watchTread;
     static List<Integer> listThreads = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
@@ -30,6 +31,9 @@ public class Main {
 
             calculateThread = new CalculateThread(calculate, listThreads);
             calculateThread.start();
+
+            watchTread = new WatchTread(listThreads);
+            watchTread.start();
 
             if(listThreads != null && !listThreads.isEmpty()){
                 for(int i : listThreads){
