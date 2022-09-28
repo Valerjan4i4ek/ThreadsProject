@@ -1,8 +1,4 @@
-import javafx.scene.transform.Scale;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,10 +7,24 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Main {
 //    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     static Scanner scanner = new Scanner(System.in);
-    static WriteThread writeThread;
-    static CalculateThread calculateThread;
-    static WatchTread watchTread;
-    static List<Integer> listThreads = new ArrayList<>();
+
+    static WriteThreadWithSynchronizedMethods writeThreadWithSynchronizedMethods;
+    static CalculateThreadWithSynchronizedMethods calculateThreadWithSynchronizedMethods;
+    static WatchTreadWithSynchronizedMethods watchTreadWithSynchronizedMethods;
+
+    static WriteThreadWithSynchronizedBlocks writeThreadWithSynchronizedBlocks;
+    static CalculateThreadWithSynchronizedBlocks calculateThreadWithSynchronizedBlocks;
+    static WatchThreadWithSynchronizedBlocks watchThreadWithSynchronizedBlocks;
+
+    static WriteThreadConcurrent writeThreadConcurrent;
+    static CalculateThreadConcurrent calculateThreadConcurrent;
+    static WatchThreadConcurrent watchThreadConcurrent;
+
+    //for concurrent collections
+    static List<Integer> listThreads = new CopyOnWriteArrayList<>();
+
+    //for blocks and methods
+//    static List<Integer> listThreads = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -23,27 +33,32 @@ public class Main {
         System.out.println("CalculateThreads amount:");
         int calculate = scanner.nextInt();
 
+        //concurrent collections
+        writeThreadConcurrent = new WriteThreadConcurrent(write, listThreads);
+        writeThreadConcurrent.start();
+        calculateThreadConcurrent = new CalculateThreadConcurrent(calculate, listThreads);
+        calculateThreadConcurrent.start();
+        watchThreadConcurrent = new WatchThreadConcurrent(listThreads);
+        watchThreadConcurrent.start();
+
+        //synchronized blocks
+//        writeThreadWithSynchronizedBlocks = new WriteThreadWithSynchronizedBlocks(write, listThreads);
+//        writeThreadWithSynchronizedBlocks.start();
+//        calculateThreadWithSynchronizedBlocks = new CalculateThreadWithSynchronizedBlocks(calculate, listThreads);
+//        watchThreadWithSynchronizedBlocks = new WatchThreadWithSynchronizedBlocks(listThreads);
+//        watchThreadWithSynchronizedBlocks.start();
 
 
-        while (true){
-            writeThread = new WriteThread(write, listThreads);
-            writeThread.start();
 
-            calculateThread = new CalculateThread(calculate, listThreads);
-            calculateThread.start();
+        //synchronized methods
+//        writeThreadWithSynchronizedMethods = new WriteThreadWithSynchronizedMethods(write, listThreads);
+//        writeThreadWithSynchronizedMethods.start();
+//        calculateThreadWithSynchronizedMethods = new CalculateThreadWithSynchronizedMethods(calculate, listThreads);
+//        calculateThreadWithSynchronizedMethods.start();
+//        watchTreadWithSynchronizedMethods = new WatchTreadWithSynchronizedMethods(listThreads);
+//        watchTreadWithSynchronizedMethods.start();
 
-            watchTread = new WatchTread(listThreads);
-            watchTread.start();
 
-            if(listThreads != null && !listThreads.isEmpty()){
-                for(int i : listThreads){
-                    System.out.println(i);
-                }
-            }
-            else{
-                System.out.println("ololo");
-            }
-        }
 
     }
 }
