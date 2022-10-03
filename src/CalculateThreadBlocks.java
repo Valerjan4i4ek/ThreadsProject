@@ -1,30 +1,28 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculateThreadWithSynchronizedBlocks extends Thread{
-    private int threadsAmount;
+public class CalculateThreadBlocks extends Thread{
+//    private int threadsAmount;
     private List<Integer> list = new ArrayList<>();
+    Thread thread;
 
-    public CalculateThreadWithSynchronizedBlocks(){}
+    public CalculateThreadBlocks(){}
 
-    public CalculateThreadWithSynchronizedBlocks(int threadsAmount, List<Integer> list){
-        this.threadsAmount = threadsAmount;
+    public CalculateThreadBlocks(List<Integer> list){
         this.list = list;
     }
 
     @Override
     public void run(){
         synchronized (list){
-            for (int i = 0; i < threadsAmount; i++) {
-                try {
-                    Thread.sleep(10);
-                    System.out.println("I'm calculate " + new CalculateThreadWithSynchronizedBlocks().getName());
+            try {
+                Thread.sleep(10);
+                thread = new CalculateThreadBlocks();
+                System.out.println("I'm calculate " + thread.getName());
 
-                    firstFiveElements(list);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                firstFiveElements(list);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -39,7 +37,7 @@ public class CalculateThreadWithSynchronizedBlocks extends Thread{
 
                     middleArithmetic(count, fiveElementsList);
                     for (int i = 0; i < 5; i++) {
-                        System.out.print(list.get(i) + " ");
+                        System.out.print(fiveElementsList.get(i) + " ");
                     }
                     System.out.println();
                 }

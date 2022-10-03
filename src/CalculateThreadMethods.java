@@ -1,19 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-public class CalculateThreadConcurrent extends Thread{
+public class CalculateThreadMethods extends Thread{
+    private List<Integer> list = new ArrayList<>();
+    public  List<Integer> finalList = new ArrayList<>();
 
-    private List<Integer> list = new CopyOnWriteArrayList<>();
-    private List<Integer> finalList = new CopyOnWriteArrayList<>();
-
-    public CalculateThreadConcurrent(List<Integer> list){
-
+    public CalculateThreadMethods(List<Integer> list){
         this.list = list;
     }
 
     @Override
-    public void run(){
+    public synchronized void run(){
         try {
             Thread.sleep(10);
 
@@ -25,8 +22,8 @@ public class CalculateThreadConcurrent extends Thread{
         }
     }
 
-    public List<Integer> firstFiveElements(List<Integer> list){
-        List<Integer> fiveElementsList = new CopyOnWriteArrayList<>();
+    public synchronized List<Integer> firstFiveElements(List<Integer> list){
+        List<Integer> fiveElementsList = new ArrayList<>();
 //        int count = 0;
         if(list != null && !list.isEmpty()){
             if(list.size() >= 5){
@@ -43,8 +40,8 @@ public class CalculateThreadConcurrent extends Thread{
         return fiveElementsList;
     }
 
-    public List<Integer> middleArithmetic(List<Integer> list){
-        List<Integer> returnList = new CopyOnWriteArrayList<>();
+    public synchronized List<Integer> middleArithmetic(List<Integer> list){
+        List<Integer> returnList = new ArrayList<>();
         int count = 0;
         for(int i : list){
             count += i;
