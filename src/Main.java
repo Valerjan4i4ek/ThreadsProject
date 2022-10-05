@@ -12,10 +12,10 @@ public class Main {
     static WatchThreadConcurrent watchThreadConcurrent;
 
     //for concurrent collections
-    static List<Integer> listThreads = new CopyOnWriteArrayList<>();
+    static List<Integer> listConcurrentThreads = new CopyOnWriteArrayList<>();
 
     //for blocks and methods
-//    static List<Integer> listThreads = new ArrayList<>();
+    static List<Integer> listThreads = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         System.out.println("WriteThreads amount:");
@@ -24,9 +24,11 @@ public class Main {
         int calculate = scanner.nextInt();
 
         Helper helper = new Helper(write, calculate, listThreads);
-//        helper.threadsWorkMethods();
+        helper.threadsWorkMethods();
 //        helper.threadsWorkBlocks();
-        helper.threadsWorkConcurrent();
+
+//        Helper helperConcurrent = new Helper(write, calculate, listConcurrentThreads);
+//        helperConcurrent.threadsWorkConcurrent();
 
 
     }

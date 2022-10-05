@@ -4,7 +4,7 @@ import java.util.List;
 public class CalculateThreadBlocks extends Thread{
 //    private int threadsAmount;
     private List<Integer> list = new ArrayList<>();
-    Thread thread;
+
 
     public CalculateThreadBlocks(){}
 
@@ -14,28 +14,29 @@ public class CalculateThreadBlocks extends Thread{
 
     @Override
     public void run(){
-        synchronized (list){
-            try {
-                Thread.sleep(10);
-                thread = new CalculateThreadBlocks();
-                System.out.println("I'm calculate " + thread.getName());
+        while (!Thread.currentThread().isInterrupted()){
+            synchronized (list){
+                try {
+                    Thread.sleep(10);
 
-                firstFiveElements(list);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                    System.out.println("I'm calculate ");
+
+                    firstFiveElements(list);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public void firstFiveElements(List<Integer> list){
         List<Integer> fiveElementsList = new ArrayList<>();
-        int count = 0;
         if(list != null && !list.isEmpty()){
-            synchronized (fiveElementsList){
+            synchronized (list){
+                middleArithmetic(list);
                 if(list.size() >= 5){
                     fiveElementsList = list.subList(0, 5);
 
-                    middleArithmetic(count, fiveElementsList);
                     for (int i = 0; i < 5; i++) {
                         System.out.print(fiveElementsList.get(i) + " ");
                     }
@@ -45,14 +46,21 @@ public class CalculateThreadBlocks extends Thread{
         }
     }
 
-    public void middleArithmetic(int count, List<Integer> list){
+    public void middleArithmetic(List<Integer> list){
+        List<Integer> subList = new ArrayList<>();
+        int count = 0;
         synchronized (list){
-            for(int i : list){
-                count += i;
-            }
-            count = count/list.size();
-            for (int i = 0; i < 5; i++) {
-                list.set(i, count);
+            if(list.size() >= 5){
+                for (int i = 0; i < 5; i++) {
+                    count += list.get(i);
+                }
+
+                count = count/5;
+
+                subList = list.subList(0,5);
+                list.removeAll(subList);
+
+                list.add(0, count);
             }
         }
     }

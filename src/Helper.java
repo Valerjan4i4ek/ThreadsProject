@@ -29,8 +29,7 @@ public class Helper {
     }
 
     public void threadsWorkMethods(){
-        WatchTreadMethods watchTreadWithSynchronizedMethods = new WatchTreadMethods(list);
-        watchTreadWithSynchronizedMethods.start();
+
         CalculateThreadMethods calculateThreadWithSynchronizedMethods;
         WriteThreadMethods writeThreadWithSynchronizedMethods;
         for (int i = 0; i < writeAmount; i++) {
@@ -41,6 +40,8 @@ public class Helper {
             calculateThreadWithSynchronizedMethods = new CalculateThreadMethods(list);
             calculateThreadWithSynchronizedMethods.start();
         }
+        WatchTreadMethods watchTreadWithSynchronizedMethods = new WatchTreadMethods(list);
+        watchTreadWithSynchronizedMethods.start();
     }
 
     public void threadsWorkConcurrent(){
