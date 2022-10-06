@@ -13,14 +13,16 @@ public class WriteThreadConcurrent extends Thread{
 
     @Override
     public void run(){
-        try {
-            Thread.sleep(10);
-            rnd = (int) (Math.random() * ++max);
-            list.add(rnd);
-            System.out.println("I'm write " + " and I generate " + rnd);
+        while (!Thread.currentThread().isInterrupted()){
+            try {
+                Thread.sleep(10);
+                rnd = (int) (Math.random() * ++max);
+                list.add(rnd);
+                System.out.println("I'm write " + " and I generate " + rnd);
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
