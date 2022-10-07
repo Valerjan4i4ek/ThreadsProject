@@ -23,12 +23,12 @@ public class Main {
         System.out.println("CalculateThreads amount:");
         int calculate = scanner.nextInt();
 
-        Helper helper = new Helper(write, calculate, listThreads);
-        helper.threadsWorkMethods();
+//        Helper helper = new Helper(write, calculate, listThreads);
+//        helper.threadsWorkMethods();
 //        helper.threadsWorkBlocks();
 
-//        Helper helperConcurrent = new Helper(write, calculate, listConcurrentThreads);
-//        helperConcurrent.threadsWorkConcurrent();
+        Helper helperConcurrent = new Helper(write, calculate, listConcurrentThreads);
+        helperConcurrent.threadsWorkConcurrent();
 
 
         

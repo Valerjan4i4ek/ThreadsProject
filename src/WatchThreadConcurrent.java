@@ -11,10 +11,10 @@ public class WatchThreadConcurrent extends Thread{
 
     @Override
     public void run(){
+        System.out.println("I'm watch thread " + list.size() + " elements in list");
         while (!Thread.currentThread().isInterrupted()){
             try{
                 Thread.sleep(2000);
-                System.out.println("I'm watch thread " + list.size() + " elements in list");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
