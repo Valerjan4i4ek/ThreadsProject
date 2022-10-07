@@ -1,7 +1,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Main {
@@ -12,7 +14,8 @@ public class Main {
     static WatchThreadConcurrent watchThreadConcurrent;
 
     //for concurrent collections
-    static List<Integer> listConcurrentThreads = new CopyOnWriteArrayList<>();
+//    static List<Integer> listConcurrentThreads = new CopyOnWriteArrayList<>();
+    static Queue<Integer> queue = new ConcurrentLinkedQueue<>();
 
     //for blocks and methods
     static List<Integer> listThreads = new ArrayList<>();
@@ -27,7 +30,7 @@ public class Main {
 //        helper.threadsWorkMethods();
 //        helper.threadsWorkBlocks();
 
-        Helper helperConcurrent = new Helper(write, calculate, listConcurrentThreads);
+        Helper helperConcurrent = new Helper(write, calculate, listThreads, queue);
         helperConcurrent.threadsWorkConcurrent();
 
 

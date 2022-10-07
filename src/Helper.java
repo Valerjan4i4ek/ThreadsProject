@@ -1,15 +1,19 @@
 import java.util.List;
+import java.util.Queue;
 
 public class Helper {
     private final int writeAmount;
     private final int calculateAmount;
     private final List<Integer> list;
+    private final Queue<Integer> queue;
 
 
-    public Helper(int writeAmount, int calculateAmount, List<Integer> list) {
+
+    public Helper(int writeAmount, int calculateAmount, List<Integer> list, Queue<Integer> queue) {
         this.writeAmount = writeAmount;
         this.calculateAmount = calculateAmount;
         this.list = list;
+        this.queue = queue;
     }
 
     public void threadsWorkBlocks(){
@@ -48,14 +52,29 @@ public class Helper {
         WriteThreadConcurrent writeThreadConcurrent;
         CalculateThreadConcurrent calculateThreadConcurrent;
         for (int i = 0; i < writeAmount; i++) {
-            writeThreadConcurrent = new WriteThreadConcurrent(list);
+            writeThreadConcurrent = new WriteThreadConcurrent(queue);
             writeThreadConcurrent.start();
         }
         for (int i = 0; i < calculateAmount; i++) {
-            calculateThreadConcurrent = new CalculateThreadConcurrent(list);
+            calculateThreadConcurrent = new CalculateThreadConcurrent(queue);
             calculateThreadConcurrent.start();
         }
-        WatchThreadConcurrent watchThreadConcurrent = new WatchThreadConcurrent(list);
+        WatchThreadConcurrent watchThreadConcurrent = new WatchThreadConcurrent(queue);
         watchThreadConcurrent.start();
     }
+
+//    public void threadsWorkConcurrent(){
+//        WriteThreadConcurrent writeThreadConcurrent;
+//        CalculateThreadConcurrent calculateThreadConcurrent;
+//        for (int i = 0; i < writeAmount; i++) {
+//            writeThreadConcurrent = new WriteThreadConcurrent(list);
+//            writeThreadConcurrent.start();
+//        }
+//        for (int i = 0; i < calculateAmount; i++) {
+//            calculateThreadConcurrent = new CalculateThreadConcurrent(list);
+//            calculateThreadConcurrent.start();
+//        }
+//        WatchThreadConcurrent watchThreadConcurrent = new WatchThreadConcurrent(list);
+//        watchThreadConcurrent.start();
+//    }
 }
