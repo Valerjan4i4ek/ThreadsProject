@@ -1,64 +1,61 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CalculateThreadMethods extends Thread{
-    private List<Integer> list = new ArrayList<>();
-//    public  List<Integer> finalList = new ArrayList<>();
+    private static List<Integer> list = new ArrayList<>();
 
     public CalculateThreadMethods(List<Integer> list){
         this.list = list;
     }
 
     @Override
-    public synchronized void run(){
+    public void run(){
         while (!Thread.currentThread().isInterrupted()){
             try {
                 Thread.sleep(10);
 
                 System.out.println("I'm calculate ");
-                firstFiveElements(list);
-
-//                System.out.println(finalList.toString());
+                CalculateThreadMethods.firstFiveElements(list);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public synchronized void firstFiveElements(List<Integer> list){
-        List<Integer> fiveElementsList = new ArrayList<>();
-
+    public static synchronized void firstFiveElements(List<Integer> list){
         if(list != null && !list.isEmpty()){
-            list = middleArithmetic(list);
+            middleArithmetic(list);
             if(list.size() >= 5){
-                fiveElementsList = list.subList(0, 5);
-
                 for (int i = 0; i < 5; i++) {
-                    System.out.print(fiveElementsList.get(i) + " ");
+                    System.out.print(list.get(i) + " ");
                 }
                 System.out.println();
             }
-        }
-//        return fiveElementsList;
-    }
-
-    public synchronized List<Integer> middleArithmetic(List<Integer> list){
-        List<Integer> returnList = new ArrayList<>();
-        int count = 0;
-
-        if(list.size() >= 5){
-
-            for (int i = 0; i < 5; i++) {
-                count += list.get(i);
+            else{
+                List<Integer> fiveElementsList = new ArrayList<>(list);
+                for (Integer integer : fiveElementsList) {
+                    System.out.print(integer + " ");
+                }
             }
-
-            count = count/5;
-
-            returnList.addAll(list);
-            List<Integer> subList = returnList.subList(0, 5);
-            returnList.removeAll(subList);
-            returnList.add(0, count);
         }
-        return returnList;
     }
+
+    public static synchronized void middleArithmetic(List<Integer> list){
+        List<Integer> subList = new ArrayList<>();
+        int count = 0;
+        if(list != null && !list.isEmpty()){
+            if(list.size() >= 5){
+                for (int i = 0; i < 5; i++) {
+                    count += list.get(i);
+                }
+                count = count/5;
+
+                subList = list.subList(0, 5);
+                list.removeAll(subList);
+                list.add(0, count);
+            }
+        }
+    }
+
 }

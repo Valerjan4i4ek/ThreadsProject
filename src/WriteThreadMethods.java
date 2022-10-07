@@ -12,7 +12,7 @@ public class WriteThreadMethods extends Thread{
     }
 
     @Override
-    public synchronized void run(){
+    public void run(){
         while (!Thread.currentThread().isInterrupted()){
             try {
                 Thread.sleep(10);

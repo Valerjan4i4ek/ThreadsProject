@@ -13,13 +13,15 @@ public class WatchThreadBlocks extends Thread{
     @Override
     public void run(){
         while (!Thread.currentThread().isInterrupted()){
+            System.out.println("I'm watch thread " + list.size() + " elements in list");
             synchronized (list){
-                try{
-                    Thread.sleep(2000);
-                    System.out.println("I'm watch thread " + list.size() + " elements in list");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+            }
+            try{
+                Thread.sleep(2000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
