@@ -42,7 +42,6 @@ public class CalculateThreadMethods extends Thread{
     }
 
     public static synchronized void middleArithmetic(List<Integer> list){
-        List<Integer> subList = new ArrayList<>();
         int count = 0;
         if(list != null && !list.isEmpty()){
             if(list.size() >= 5){
@@ -51,8 +50,21 @@ public class CalculateThreadMethods extends Thread{
                 }
                 count = count/5;
 
-                subList = list.subList(0, 5);
-                list.removeAll(subList);
+                ListIterator<Integer> listIterator = list.listIterator();
+                int i = 0;
+                while (listIterator.hasNext()){
+                    if(i == 5){
+                        break;
+                    }else{
+                        listIterator.next();
+                        listIterator.remove();
+                        i++;
+                    }
+                }
+                list.clear();
+                while (listIterator.hasNext()){
+                    list.add(listIterator.next());
+                }
                 list.add(0, count);
             }
         }
