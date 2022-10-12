@@ -52,18 +52,10 @@ public class CalculateThreadMethods extends Thread{
 
                 ListIterator<Integer> listIterator = list.listIterator();
                 int i = 0;
-                while (listIterator.hasNext()){
-                    if(i == 5){
-                        break;
-                    }else{
-                        listIterator.next();
-                        listIterator.remove();
-                        i++;
-                    }
-                }
-                list.clear();
-                while (listIterator.hasNext()){
-                    list.add(listIterator.next());
+                while (listIterator.hasNext() && i < 5){
+                    listIterator.next();
+                    listIterator.remove();
+                    i++;
                 }
                 list.add(0, count);
             }
